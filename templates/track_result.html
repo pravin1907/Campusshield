@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Track Result</title>
+</head>
+
+<body>
+    <h2>Tracking Result for {{ app_id }}</h2>
+    {% if data %}
+    <p><strong>Category:</strong> {{ data.category }}</p>
+    <p><strong>Date:</strong> {{ data.date }}</p>
+    <p><strong>Location:</strong> {{ data.location }}</p>
+    <p><strong>Description:</strong> {{ data.description }}</p>
+    <p><strong>Status:</strong> {{ data.status }}</p>
+    {% if data.photo %}
+    <p><strong>Image:</strong> <a href="/uploads/{{ data.photo }}" target="_blank">View Image</a></p>
+    {% endif %}
+    {% else %}
+    <p>No report found with this Application ID.</p>
+    {% endif %}
+</body>
+
+</html>

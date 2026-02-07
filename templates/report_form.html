@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Anonymous Report Submission</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Anonymous Report Submission</h2>
+    <form method="POST" action="/submit" enctype="multipart/form-data">
+        <select name="category" required>
+            <option value="" disabled selected>Select Category</option>
+            <option>Bullying</option>
+            <option>Harassment</option>
+            <option>Mental Health</option>
+            <option>Other</option>
+        </select>
+        <input type="date" name="date" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <textarea name="description" placeholder="Describe the issue..." required></textarea>
+        <input type="file" name="photo" accept="image/*">
+        <button type="submit">Submit Report</button>
+    </form>
+    <a href="/track_report">Track Your Report</a>
+    <a href="/login">Admin Login</a>
+</body>
+
+</html>

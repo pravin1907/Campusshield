@@ -1,0 +1,43 @@
+from flask import request, render_template
+import sqlite3
+import os
+from werkzeug.utils import secure_filename
+import re
+from nltk.tokenize import word_tokenize # Make sure nltk is installed and punkt is downloaded
+
+@app.route('/submit', methods=['POST'])
+def submit_report():
+description = request.form.get('message', '')
+location = request.form.get('location', '')
+category = request.form.get('category', '')
+incident_date = request.form.get('incident_date', '')
+proof = request.files.get('proof')
+
+application_id = generate_application_id()
+
+urgency = "Low" # Default
+keywords = ["harassment", "abuse", "suicide", "depression", "threat", "unsafe", "crying", "molest", "violence"]
+words = word_tokenize(description.lower())
+
+if any(word in words for word in keywords):
+urgency = "High"
+elif re.search(r'\b(harass|bully|abuse)\b', description.lower()):
+urgency = "High"
+
+# 📸 Save optional proof
+proof_filename = ''
+if proof and proof.filename:
+proof_filename = secure_filename(proof.filename)
+proof.save(os.path.join('static/uploads', proof_filename))
+
+
+conn = sqlite3.connect('complaints.db')
+c = conn.cursor()
+c.execute('''INSERT INTO complaints (description, location, category, incident_date, proof_filename, application_id,
+urgency, status)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)''',
+(description, location, category, incident_date, proof_filename, application_id, urgency, 'Pending'))
+conn.commit()
+conn.close()
+
+return render_template('success.html', application_id=application_id)

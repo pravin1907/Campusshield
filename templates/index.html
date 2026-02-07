@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CampusShield – Report Form</title>
+</head>
+
+<body>
+    <h2>Anonymous Report Submission</h2>
+    <form method="POST" action="/submit_report">
+        <input name="name" placeholder="Your Name"><br>
+        <input name="email" placeholder="Your Email"><br>
+        <input name="category" placeholder="Issue Category (e.g., Bullying, Harassment)"><br>
+        <input name="date" type="date" placeholder="Date of Incident"><br>
+        <input name="location" placeholder="Location"><br>
+        <textarea name="description" placeholder="Describe the issue..."></textarea><br>
+        <button type="submit">Submit Report</button>
+    </form>
+    <br>
+    <a href="/track_report">Track Your Report</a><br>
+    <a href="/admin">Admin Login</a>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% endwith %}
+</body>
+
+</html>

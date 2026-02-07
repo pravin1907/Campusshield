@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Portal</title>
+</head>
+
+<body>
+    <h2>Welcome to the User Portal</h2>
+    <a href="{{ url_for('submit_report') }}">Submit an Issue</a>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <p style="color:green;">{{ messages[0] }}</p>
+    {% endif %}
+    {% endwith %}
+</body>
+
+</html>
